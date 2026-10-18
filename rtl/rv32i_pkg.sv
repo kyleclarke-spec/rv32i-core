@@ -1,6 +1,6 @@
 // rv32i_pkg.sv
 // Shared definitions for the RV32I core: opcodes and control encodings.
-package rv32i_pkg:
+package rv32i_pkg;
 
     // ALU operations. The ALU performs exactly one of these each cycle.
     typedef enum logic [3:0] {
