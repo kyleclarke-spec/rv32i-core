@@ -3,7 +3,7 @@ Single-cycle RV32I RISC-V core in SystemVerilog.
 
 ## Status
 - [x] Toolchain and test flow (4-bit adder)
-- [ ] ALU
+- [x] ALU
 - [ ] Register file
 - [ ] Control unit
 - [ ] Branch unit

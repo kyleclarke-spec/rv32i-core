@@ -10,11 +10,17 @@ TOPLEVEL_LANG = verilog
 TEST ?= adder
 WAVES ?= 0
 
-# The source files each test needs.
+# Every test, in the order the book builds them.
+TESTS = adder alu
+
+# The source files each test needs. Packages must come first.
+PKG = rtl/rv32i_pkg.sv
+
 SRCS_adder = rtl/adder.sv
+SRCS_alu = $(PKG) rtl/alu.sv
 
 ifeq ($(SRCS_$(TEST)),)
-	$(error Unkown TEST '$(TEST)')
+  $(error Unkown TEST '$(TEST)')
 endif
 
 VERILOG_SOURCES = $(addprefix $(CURDIR)/,$(SRCS_$(TEST)))
@@ -29,6 +35,13 @@ ifeq ($(WAVES),1)
 endif
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+.PHONY: test-all
+
+test-all:
+	@for t in $(TESTS); do \
+		$(MAKE) --no-print-directory TEST=$$t || exit 1; \
+	done
 
 clean::
 	rm -rf sim_build results.xml dump.vcd
